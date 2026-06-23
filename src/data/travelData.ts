@@ -364,253 +364,253 @@ export const galleryImages: GalleryImage[] = [
   {
     "id": "g1",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(1).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (1)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g2",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(2).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (2)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g3",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(3).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (3)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g4",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(4).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (4)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g5",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(5).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (5)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g6",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(6).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (6)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g7",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze%20(7).jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze (7)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g8",
     "url": "/assets/gallery/%23Day2%20in%20%23Arbaminch%20and%20%23Dorze.jpg",
-    "caption": "Memories from Southern Ethiopia: #Day2 in #Arbaminch and #Dorze",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g9",
     "url": "/assets/gallery/%23Travel_with_Mercy%20%23Day_One_in_Arbaminch_Ethiopia%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F%20(1).jpg",
-    "caption": "Memories from Southern Ethiopia: #Travel with Mercy #Day One in Arbaminch Ethiopia💚💛❤️ (1)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g10",
     "url": "/assets/gallery/%23%E1%8B%B0%E1%89%A1%E1%89%A5_%E1%8A%A6%E1%88%9E_%E1%8A%AB%E1%88%AE_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F%20(1).jpg",
-    "caption": "Memories from Southern Ethiopia: #ደቡብ ኦሞ ካሮ ኢትዮዽያ💚💛❤️ (1)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g11",
     "url": "/assets/gallery/%23%E1%8B%B0%E1%89%A1%E1%89%A5_%E1%8A%A6%E1%88%9E_%E1%8A%AB%E1%88%AE_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F%20(2).jpg",
-    "caption": "Memories from Southern Ethiopia: #ደቡብ ኦሞ ካሮ ኢትዮዽያ💚💛❤️ (2)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g12",
     "url": "/assets/gallery/%23%E1%8B%B0%E1%89%A1%E1%89%A5_%E1%8A%A6%E1%88%9E_%E1%8A%AB%E1%88%AE_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F.jpg",
-    "caption": "Memories from Southern Ethiopia: #ደቡብ ኦሞ ካሮ ኢትዮዽያ💚💛❤️",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g13",
     "url": "/assets/gallery/%23%E1%8B%B3%E1%88%B0%E1%8A%90%E1%89%BD_%E1%8A%A6%E1%88%9E%E1%88%AB%E1%89%B4_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F%20(1).jpg",
-    "caption": "Memories from Southern Ethiopia: #ዳሰነች ኦሞራቴ ኢትዮዽያ💚💛❤️ (1)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g14",
     "url": "/assets/gallery/%23%E1%8B%B3%E1%88%B0%E1%8A%90%E1%89%BD_%E1%8A%A6%E1%88%9E%E1%88%AB%E1%89%B4_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F%20(2).jpg",
-    "caption": "Memories from Southern Ethiopia: #ዳሰነች ኦሞራቴ ኢትዮዽያ💚💛❤️ (2)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g15",
     "url": "/assets/gallery/%23%E1%8B%B3%E1%88%B0%E1%8A%90%E1%89%BD_%E1%8A%A6%E1%88%9E%E1%88%AB%E1%89%B4_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F%20(3).jpg",
-    "caption": "Memories from Southern Ethiopia: #ዳሰነች ኦሞራቴ ኢትዮዽያ💚💛❤️ (3)",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g16",
     "url": "/assets/gallery/%23%E1%8B%B3%E1%88%B0%E1%8A%90%E1%89%BD_%E1%8A%A6%E1%88%9E%E1%88%AB%E1%89%B4_%E1%8A%A2%E1%89%B5%E1%8B%AE%E1%8B%BD%E1%8B%AB%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F.jpg",
-    "caption": "Memories from Southern Ethiopia: #ዳሰነች ኦሞራቴ ኢትዮዽያ💚💛❤️",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g17",
     "url": "/assets/gallery/A%20huge%20shoutout%20to%20the%20amazing%20tourist%20guide%20Ethiopia%20Mak%20ToursI%20recently%20traveled%20to%20Southern%20E.jpg",
-    "caption": "Memories from Southern Ethiopia: A huge shoutout to the amazing tourist guide Ethiopia Mak ToursI recently traveled to Southern E",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g18",
     "url": "/assets/gallery/AQNqTfCQhCLp1Bj9f0yp5bsocisuImPJDx5DgQ4xI9DGq8MahhmzF1zw2qNvFiWjSZ3sdep4douqnVSZJFbNdSpfbZiI1ezX.mp4",
-    "caption": "Memories from Southern Ethiopia: Scenic Highlights",
+    "caption": "",
     "category": "Nature"
   },
   {
     "id": "g19",
     "url": "/assets/gallery/Great%20things%20never%20come%20from%20comfort%20zones%20%20%23%E1%8A%A5%E1%8B%A8%E1%8D%88%E1%8C%8B%E1%8A%95_%E1%8B%88%E1%8C%88%E1%8A%95%E2%9C%8C%EF%B8%8F.jpg",
-    "caption": "Memories from Southern Ethiopia: Great things never come from comfort zones #እየፈጋን ወገን✌️",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g20",
     "url": "/assets/gallery/IMG_2620.JPG",
-    "caption": "Memories from Southern Ethiopia: IMG 2620",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g21",
     "url": "/assets/gallery/IMG_2621.JPG",
-    "caption": "Memories from Southern Ethiopia: IMG 2621",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g22",
     "url": "/assets/gallery/IMG_2622.JPG",
-    "caption": "Memories from Southern Ethiopia: IMG 2622",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g23",
     "url": "/assets/gallery/Peace%20grows%20where%20respect%20lives.%20Celebrate%20cultures%2C%20spread%20kindness%2C%20and%20treat%20everyone%20with%20di.jpg",
-    "caption": "Memories from Southern Ethiopia: Peace grows where respect lives. Celebrate cultures, spread kindness, and treat everyone with di",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g24",
     "url": "/assets/gallery/photo_10_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 10 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g25",
     "url": "/assets/gallery/photo_11_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 11 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g26",
     "url": "/assets/gallery/photo_15_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 15 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g27",
     "url": "/assets/gallery/photo_16_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 16 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g28",
     "url": "/assets/gallery/photo_19_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 19 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g29",
     "url": "/assets/gallery/photo_20_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 20 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g30",
     "url": "/assets/gallery/photo_21_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 21 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g31",
     "url": "/assets/gallery/photo_22_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 22 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g32",
     "url": "/assets/gallery/photo_23_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 23 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g33",
     "url": "/assets/gallery/photo_28_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 28 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g34",
     "url": "/assets/gallery/photo_29_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 29 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g35",
     "url": "/assets/gallery/photo_33_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 33 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g36",
     "url": "/assets/gallery/photo_3_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 3 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g37",
     "url": "/assets/gallery/photo_5_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 5 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g38",
     "url": "/assets/gallery/photo_7_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 7 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g39",
     "url": "/assets/gallery/photo_8_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 8 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g40",
     "url": "/assets/gallery/photo_9_2026-06-23_13-36-13.jpg",
-    "caption": "Memories from Southern Ethiopia: photo 9 2026-06-23 13-36-13",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g41",
     "url": "/assets/gallery/%E1%89%B5%E1%8A%95%E1%88%BD%20%E1%89%B3%E1%88%98%E1%88%9D%E1%8A%95%20%E1%8A%A5%E1%8A%93%20%E1%8A%A0%E1%88%B5%E1%89%B3%E1%88%9B%E1%88%9A%E1%8B%AB%E1%89%BD%E1%8A%95%E1%8A%95%20%E1%8A%A5%E1%8A%93%20%E1%89%80%E1%89%A3%E1%88%AD%E1%8B%AB%E1%89%BD%E1%8A%95%E1%8A%95%20%E1%88%88%E1%8B%A8%E1%8A%95%E1%89%A0%E1%89%B5.jpg",
-    "caption": "Memories from Southern Ethiopia: ትንሽ ታመምን እና አስታማሚያችንን እና ቀባርያችንን ለየንበት",
+    "caption": "",
     "category": "Heritage"
   },
   {
     "id": "g42",
     "url": "/assets/gallery/%E1%8B%B0%E1%88%B5%20%E1%8B%A8%E1%88%9A%E1%88%8D%20%E1%89%80%E1%8A%95%F0%9F%92%9A%F0%9F%92%9B%E2%9D%A4%EF%B8%8F.mp4",
-    "caption": "Memories from Southern Ethiopia: ደስ የሚል ቀን💚💛❤️",
+    "caption": "",
     "category": "Nature"
   }
 ];

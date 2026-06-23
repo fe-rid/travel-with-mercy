@@ -107,9 +107,6 @@ export default function Gallery() {
                     <span className="text-gold text-[10px] uppercase font-bold tracking-widest">
                       {isVideo ? "Video Tour" : img.category}
                     </span>
-                    <p className="text-white text-sm font-serif font-medium leading-relaxed max-w-xs">
-                      {img.caption}
-                    </p>
                   </div>
 
                   {/* Static Bottom Left Badge */}
