@@ -48,7 +48,7 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/1LfVqrheuK/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
@@ -63,7 +63,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/travel_with_mercy15?igsh=MWI0cGJzMjRuY3pvaA%3D%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
@@ -83,7 +83,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://tiktok.com"
+                href="https://www.tiktok.com/@travelwithmercy12?_r=1&_t=ZS-97N1ZbyxIgB"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
