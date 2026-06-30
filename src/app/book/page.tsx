@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/Toast";
 import { tours } from "@/data/travelData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { createBooking } from "@/lib/actions/bookings";
 
 // Steps descriptions
 const steps = [
@@ -30,6 +31,8 @@ function BookTourContent() {
 
   const [activeStep, setActiveStep] = useState(0);
   const [selectedTourId, setSelectedTourId] = useState("");
+  const [bookingReference, setBookingReference] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Traveler Info States
   const [travelerInfo, setTravelerInfo] = useState({
@@ -116,7 +119,7 @@ function BookTourContent() {
   };
 
   // Handle Stepper Navigation
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 0) {
       if (!selectedTourId) {
         addToast("Please select a tour package to continue", "error");
@@ -136,33 +139,59 @@ function BookTourContent() {
         addToast("Please fill in travel dates correctly", "error");
       }
     } else if (activeStep === 3) {
-      // Simulate booking submit action
+      if (isSubmitting) return;
+      setIsSubmitting(true);
       addToast("Submitting your luxury booking proposal...", "info");
-      setTimeout(() => {
-        // Save mock booking to localStorage to show on Dashboard
-        const newBooking = {
-          id: `TWM-${Math.floor(100000 + Math.random() * 900000)}`,
-          customer: travelerInfo.fullName,
-          email: travelerInfo.email,
-          phone: travelerInfo.phone,
-          tour: selectedTour?.title || "",
-          tourId: selectedTourId,
-          amount: `$${getEstimatedPrice().toLocaleString()}`,
-          date: new Date().toLocaleDateString(),
-          travelers: travelerInfo.travelersCount,
-          departureDate: travelDetails.departureDate,
-          returnDate: travelDetails.returnDate,
-          hotelPreference: travelDetails.hotelPreference,
-          status: "Pending" as const,
-        };
 
-        const existing = localStorage.getItem("twm_bookings");
-        const bookingsList = existing ? JSON.parse(existing) : [];
-        localStorage.setItem("twm_bookings", JSON.stringify([newBooking, ...bookingsList]));
+      const payload = {
+        fullName: travelerInfo.fullName,
+        email: travelerInfo.email,
+        phone: travelerInfo.phone,
+        nationality: travelerInfo.nationality,
+        travelers: Number(travelerInfo.travelersCount),
+        departureDate: new Date(travelDetails.departureDate),
+        returnDate: new Date(travelDetails.returnDate),
+        notes: travelDetails.additionalNotes,
+        tourId: selectedTourId,
+        hotelPreference: travelDetails.hotelPreference as any,
+      };
 
-        setActiveStep(4);
-        addToast("Booking request submitted successfully!", "success");
-      }, 1500);
+      try {
+        const result = await createBooking(payload);
+        if (result.success && result.bookingReference) {
+          setBookingReference(result.bookingReference);
+
+          // Save mock booking to localStorage to show on Dashboard (as cache)
+          const newBooking = {
+            id: result.bookingReference,
+            customer: travelerInfo.fullName,
+            email: travelerInfo.email,
+            phone: travelerInfo.phone,
+            tour: selectedTour?.title || "",
+            tourId: selectedTourId,
+            amount: `$${getEstimatedPrice().toLocaleString()}`,
+            date: new Date().toLocaleDateString(),
+            travelers: travelerInfo.travelersCount,
+            departureDate: travelDetails.departureDate,
+            returnDate: travelDetails.returnDate,
+            hotelPreference: travelDetails.hotelPreference,
+            status: "Pending" as const,
+          };
+
+          const existing = localStorage.getItem("twm_bookings");
+          const bookingsList = existing ? JSON.parse(existing) : [];
+          localStorage.setItem("twm_bookings", JSON.stringify([newBooking, ...bookingsList]));
+
+          setActiveStep(4);
+          addToast("Booking request submitted successfully!", "success");
+        } else {
+          addToast(result.error || "Failed to submit booking", "error");
+        }
+      } catch (err: any) {
+        addToast(err.message || "Failed to connect to server", "error");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -640,6 +669,18 @@ function BookTourContent() {
                     ✓ Booking Request Submitted Successfully
                   </span>
                   <h2 className="font-serif text-3xl font-extrabold text-navy">Thank You for Trusting Us</h2>
+                  
+                  {bookingReference && (
+                    <div className="bg-gold/10 border border-gold/30 rounded-xl p-4 max-w-sm mx-auto my-4">
+                      <span className="text-[10px] uppercase font-bold tracking-widest text-navy/60 block mb-1">
+                        Booking Reference
+                      </span>
+                      <span className="font-serif text-xl font-extrabold text-gold tracking-widest block select-all">
+                        {bookingReference}
+                      </span>
+                    </div>
+                  )}
+                  
                   <p className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto">
                     Your luxury travel inquiry is received. A dedicated Travel With Mercy concierge advisor will review and contact you shortly with a formal itinerary layout.
                   </p>

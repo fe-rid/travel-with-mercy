@@ -1,0 +1,106 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("Admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Tour {
+  id               String    @id @default(uuid())
+  title            String
+  slug             String    @unique
+  description      String
+  price            String
+  duration         String
+  destination      String
+  heroImage        String
+  galleryImages    String[]
+  highlights       String[]
+  itinerary        Json      // Array of ItineraryItem { day: number, title: string, description: string }
+  includedServices String[]
+  excludedServices String[]
+  featured         Boolean   @default(false)
+  status           String    @default("Draft") // Draft, Published
+  faqs             Json?     // Array of FAQItem { question: string, answer: string }
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  bookings         Booking[]
+}
+
+model Destination {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String
+  heroImage   String
+  gallery     String[]
+  highlights  String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Booking {
+  id               String   @id @default(uuid())
+  bookingReference String   @unique
+  fullName         String
+  email            String
+  phone            String
+  nationality      String
+  travelers        Int      // travelers count
+  departureDate    DateTime
+  returnDate       DateTime
+  notes            String?
+  totalPrice       Float
+  status           String   @default("Pending") // Pending, Confirmed, Completed, Cancelled
+  tourId           String
+  tour             Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  hotelPreference  String   @default("Premium") // Standard, Premium, Luxury
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Testimonial {
+  id           String   @id @default(uuid())
+  customerName String
+  country      String
+  review       String
+  rating       Int
+  avatar       String
+  approved     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model GalleryImage {
+  id        String   @id @default(uuid())
+  imageUrl  String
+  caption   String
+  category  String
+  createdAt DateTime @default(now())
+}
+
+model WebsiteSettings {
+  id           String   @id @default("singleton")
+  companyName  String
+  email        String
+  phone        String
+  address      String
+  facebook     String
+  instagram    String
+  tiktok       String
+  heroTitle    String
+  heroSubtitle String
+  logoUrl      String?
+  updatedAt    DateTime @updatedAt
+}

@@ -4,7 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function Hero() {
+interface HeroProps {
+  settings?: any;
+}
+
+export default function Hero({ settings }: HeroProps) {
   const handleScrollTo = (id: string) => {
     const targetElement = document.getElementById(id);
     if (targetElement) {
@@ -71,11 +75,18 @@ export default function Hero() {
             Discover East Africa
           </span>
           <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight">
-            Discover Ethiopia <br />
-            <span className="text-gold relative inline-block">
-              With Confidence
-              <span className="absolute bottom-2 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent" />
-            </span>
+            {(settings?.heroTitle || "Discover Ethiopia With Confidence").includes("Ethiopia") ? (
+              <>
+                {(settings?.heroTitle || "Discover Ethiopia With Confidence").split("Ethiopia")[0]}
+                <span className="text-gold relative inline-block">
+                  Ethiopia
+                  <span className="absolute bottom-2 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent" />
+                </span>
+                {(settings?.heroTitle || "Discover Ethiopia With Confidence").split("Ethiopia")[1]}
+              </>
+            ) : (
+              settings?.heroTitle || "Discover Ethiopia With Confidence"
+            )}
           </h1>
         </motion.div>
 
@@ -85,7 +96,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" as const }}
           className="text-lg md:text-xl text-white/80 leading-relaxed font-light max-w-2xl mx-auto"
         >
-          Experience unforgettable adventures, cultural treasures, and personalized tours curated for those seeking luxury and safety.
+          {settings?.heroSubtitle || "Experience unforgettable adventures, cultural treasures, and personalized tours curated for those seeking luxury and safety."}
         </motion.p>
 
         {/* Buttons */}

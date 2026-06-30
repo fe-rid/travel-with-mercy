@@ -2,32 +2,45 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { BookingTrendsChart, RevenueChart } from "@/components/admin/charts/DashboardCharts";
-import { recentBookings, Booking } from "@/data/adminDemoData";
 import { DollarSign, Users, Map, CalendarCheck, TrendingUp, ArrowUpRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-
-const stats = [
-  { title: "Total Bookings", value: "2,543", icon: CalendarCheck, change: "+12.5%", trend: "up" },
-  { title: "Active Tours", value: "14", icon: Map, change: "Stable", trend: "neutral" },
-  { title: "Total Revenue", value: "$843,200", icon: DollarSign, change: "+24.8%", trend: "up" },
-  { title: "Customers", value: "1,204", icon: Users, change: "+8.2%", trend: "up" },
-];
+import { getDashboardStats } from "@/lib/actions/bookings";
 
 export default function AdminDashboardPage() {
-  const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState([
+    { title: "Total Bookings", value: "0", icon: CalendarCheck, change: "0", trend: "neutral" },
+    { title: "Active Tours", value: "0", icon: Map, change: "0", trend: "neutral" },
+    { title: "Total Revenue", value: "$0", icon: DollarSign, change: "0", trend: "neutral" },
+    { title: "Customers", value: "0", icon: Users, change: "0", trend: "neutral" },
+  ]);
+  const [recentBookings, setRecentBookings] = useState<any[]>([]);
+  const [trends, setTrends] = useState<any[]>([]);
 
   useEffect(() => {
-    const existing = localStorage.getItem("twm_bookings");
-    if (existing) {
-      setBookings(JSON.parse(existing));
-    } else {
-      localStorage.setItem("twm_bookings", JSON.stringify(recentBookings));
-      setBookings(recentBookings);
+    async function loadStats() {
+      try {
+        const res = await getDashboardStats();
+        if (res.success && res.data) {
+          const d = res.data;
+          setStats([
+            { title: "Total Bookings", value: String(d.totalBookings), icon: CalendarCheck, change: `Pending: ${d.pendingBookings}`, trend: "neutral" },
+            { title: "Active Tours", value: String(d.activeTours), icon: Map, change: `Destinations: ${d.destinationsCount}`, trend: "neutral" },
+            { title: "Total Revenue", value: `$${d.totalRevenue.toLocaleString()}`, icon: DollarSign, change: `Confirmed: ${d.confirmedBookings}`, trend: "neutral" },
+            { title: "Customers", value: String(d.customersCount), icon: Users, change: "Unique Contacts", trend: "neutral" },
+          ]);
+          setRecentBookings(d.recentBookings);
+          setTrends(d.bookingTrends);
+        }
+      } catch (err) {
+        console.error("Failed to load dashboard stats:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-    setLoading(false);
+    loadStats();
   }, []);
 
   return (
@@ -38,8 +51,11 @@ export default function AdminDashboardPage() {
           <p className="text-muted-foreground mt-1">Overview of your travel agency's performance.</p>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors">
-            Generate Report
+          <Button 
+            onClick={() => window.print()}
+            className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors"
+          >
+            Print Report
           </Button>
         </div>
       </div>
@@ -47,7 +63,7 @@ export default function AdminDashboardPage() {
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, i) => (
-          <Card key={i} className="border-none shadow-sm">
+          <Card key={i} className="border-none shadow-sm bg-white">
             <CardContent className="p-6">
               <div className="flex items-center justify-between space-y-0 pb-2">
                 <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
@@ -56,10 +72,9 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <h2 className="text-3xl font-bold text-navy">{stat.value}</h2>
-                {stat.trend === "up" && (
-                  <span className="text-xs font-semibold text-emerald-600 flex items-center bg-emerald-50 px-2 py-0.5 rounded-full">
-                    <TrendingUp className="h-3 w-3 mr-1" />
+                <h2 className="text-3xl font-bold text-navy">{loading ? <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /> : stat.value}</h2>
+                {!loading && (
+                  <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
                     {stat.change}
                   </span>
                 )}
@@ -71,29 +86,41 @@ export default function AdminDashboardPage() {
 
       {/* Charts Row */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border-none shadow-sm">
+        <Card className="border-none shadow-sm bg-white">
           <CardHeader>
             <CardTitle className="text-lg text-navy">Booking Trends</CardTitle>
-            <CardDescription>Number of bookings over the last 12 months</CardDescription>
+            <CardDescription>Number of bookings over the last 6 months</CardDescription>
           </CardHeader>
           <CardContent>
-            <BookingTrendsChart />
+            {loading ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-gold" />
+              </div>
+            ) : (
+              <BookingTrendsChart data={trends} />
+            )}
           </CardContent>
         </Card>
         
-        <Card className="border-none shadow-sm">
+        <Card className="border-none shadow-sm bg-white">
           <CardHeader>
             <CardTitle className="text-lg text-navy">Monthly Revenue</CardTitle>
             <CardDescription>Income generated per month (USD)</CardDescription>
           </CardHeader>
           <CardContent>
-            <RevenueChart />
+            {loading ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-gold" />
+              </div>
+            ) : (
+              <RevenueChart data={trends} />
+            )}
           </CardContent>
         </Card>
       </div>
 
       {/* Recent Bookings Widget */}
-      <Card className="border-none shadow-sm">
+      <Card className="border-none shadow-sm bg-white">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <div>
             <CardTitle className="text-lg text-navy">Recent Bookings</CardTitle>
@@ -123,15 +150,13 @@ export default function AdminDashboardPage() {
                       <Loader2 className="h-4 w-4 animate-spin inline mr-2" /> Loading recent bookings...
                     </td>
                   </tr>
-                ) : bookings.length > 0 ? (
-                  bookings.slice(0, 5).map((booking) => (
+                ) : recentBookings.length > 0 ? (
+                  recentBookings.map((booking) => (
                     <tr key={booking.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
                       <td className="px-4 py-3 font-medium text-navy">{booking.id}</td>
                       <td className="px-4 py-3 text-slate-600">{booking.customer}</td>
                       <td className="px-4 py-3 text-slate-600">{booking.tour}</td>
-                      <td className="px-4 py-3 text-slate-600">
-                        {booking.departureDate ? new Date(booking.departureDate).toLocaleDateString() : booking.date}
-                      </td>
+                      <td className="px-4 py-3 text-slate-600">{booking.date}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded-full ${
                           booking.status === "Completed" ? "bg-emerald-100 text-emerald-700" :

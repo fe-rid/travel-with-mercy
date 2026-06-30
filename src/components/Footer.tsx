@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { Globe, Phone, Mail, MapPin } from "lucide-react";
 
-export default function Footer() {
+interface FooterProps {
+  settings?: any;
+}
+
+export default function Footer({ settings }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -48,7 +52,7 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
-                href="https://www.facebook.com/share/1LfVqrheuK/?mibextid=wwXIfr"
+                href={settings?.facebook || "https://www.facebook.com/share/1LfVqrheuK/?mibextid=wwXIfr"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
@@ -63,7 +67,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.instagram.com/travel_with_mercy15?igsh=MWI0cGJzMjRuY3pvaA%3D%3D&utm_source=qr"
+                href={settings?.instagram || "https://www.instagram.com/travel_with_mercy15?igsh=MWI0cGJzMjRuY3pvaA%3D%3D&utm_source=qr"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
@@ -83,7 +87,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.tiktok.com/@travelwithmercy12?_r=1&_t=ZS-97N1ZbyxIgB"
+                href={settings?.tiktok || "https://www.tiktok.com/@travelwithmercy12?_r=1&_t=ZS-97N1ZbyxIgB"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
@@ -163,21 +167,21 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                <span>Addis Ababa, Ethiopia</span>
+                <span>{settings?.address || "Addis Ababa, Ethiopia"}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-gold shrink-0" />
-                <a href="tel:+251912826488" className="hover:text-gold transition-colors">
-                  +251 912 826 488
+                <a href={`tel:${(settings?.phone || "+251912826488").replace(/\s+/g, "")}`} className="hover:text-gold transition-colors">
+                  {settings?.phone || "+251 912 826 488"}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-gold shrink-0" />
                 <a
-                  href="mailto:travelwithmercy15@gmail.com"
+                  href={`mailto:${settings?.email || "travelwithmercy15@gmail.com"}`}
                   className="hover:text-gold transition-colors break-all"
                 >
-                  travelwithmercy15@gmail.com
+                  {settings?.email || "travelwithmercy15@gmail.com"}
                 </a>
               </li>
             </ul>

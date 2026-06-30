@@ -75,7 +75,7 @@ export default function About() {
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
-              At **TRAVEL WITH MERCY**, we believe that travel should be more than just visiting destinations—it should be a profound experience of discovery, connection, and comfort. Based in the heart of Addis Ababa, we customize upscale itineraries designed around your dreams.
+              At "TRAVEL WITH MERCY", we believe that travel should be more than just visiting destinations—it should be a profound experience of discovery, connection, and comfort. Based in the heart of Addis Ababa, we customize upscale itineraries designed around your dreams.
             </p>
 
             <p className="text-muted-foreground leading-relaxed">

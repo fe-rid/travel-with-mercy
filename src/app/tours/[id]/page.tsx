@@ -4,9 +4,21 @@ import { Star, Clock, Check, X, Shield, Calendar, ArrowRight, Home, ChevronRight
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { tours } from "@/data/travelData";
+import prisma from "@/lib/prisma";
+import { tours as defaultTours } from "@/data/travelData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+async function getSettings() {
+  try {
+    const settings = await prisma.websiteSettings.findUnique({
+      where: { id: "singleton" },
+    });
+    return settings || null;
+  } catch {
+    return null;
+  }
+}
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -14,7 +26,39 @@ interface PageProps {
 
 export default async function TourDetailsPage({ params }: PageProps) {
   const { id } = await params;
-  const tour = tours.find((t) => t.id === id);
+  const settings = await getSettings();
+  
+  let tour = null;
+  try {
+    const dbTour = await prisma.tour.findUnique({
+      where: { id },
+    });
+    if (dbTour) {
+      tour = {
+        id: dbTour.id,
+        title: dbTour.title,
+        duration: dbTour.duration,
+        price: dbTour.price,
+        rating: 5.0,
+        image: dbTour.heroImage,
+        description: dbTour.description,
+        tags: dbTour.highlights.slice(0, 3),
+        highlights: dbTour.highlights,
+        gallery: dbTour.galleryImages,
+        itinerary: (dbTour.itinerary as any) || [],
+        included: dbTour.includedServices,
+        excluded: dbTour.excludedServices,
+        faqs: (dbTour.faqs as any) || [],
+      };
+    }
+  } catch (err) {
+    console.error("Database tour load failed:", err);
+  }
+
+  // Fallback to static mock data if not in DB
+  if (!tour) {
+    tour = defaultTours.find((t) => t.id === id);
+  }
 
   if (!tour) {
     notFound();
@@ -22,7 +66,7 @@ export default async function TourDetailsPage({ params }: PageProps) {
 
   return (
     <>
-      <Navbar />
+      <Navbar settings={settings} />
       <main className="flex-grow pt-20">
         {/* Dynamic Hero Banner */}
         <section className="relative h-[60vh] md:h-[70vh] flex items-center justify-center bg-navy overflow-hidden">
@@ -286,7 +330,7 @@ export default async function TourDetailsPage({ params }: PageProps) {
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer settings={settings} />
     </>
   );
 }

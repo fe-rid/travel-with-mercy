@@ -5,9 +5,13 @@ import Link from "next/link";
 import { Star, Clock, ArrowRight, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { tours } from "@/data/travelData";
+import { tours as defaultTours } from "@/data/travelData";
 
-export default function Tours() {
+interface ToursProps {
+  tours?: any[];
+}
+
+export default function Tours({ tours = defaultTours }: ToursProps) {
   const containerVariants = {
     hidden: {},
     visible: {

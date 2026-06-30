@@ -11,14 +11,14 @@ import {
   BarChart,
   Bar
 } from 'recharts';
-import { bookingTrendsData } from '@/data/adminDemoData';
+import { bookingTrendsData as defaultData } from '@/data/adminDemoData';
 
-export function BookingTrendsChart() {
+export function BookingTrendsChart({ data = defaultData }: { data?: any[] }) {
   return (
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
-          data={bookingTrendsData}
+          data={data}
           margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
         >
           <defs>
@@ -57,12 +57,12 @@ export function BookingTrendsChart() {
   );
 }
 
-export function RevenueChart() {
+export function RevenueChart({ data = defaultData }: { data?: any[] }) {
   return (
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          data={bookingTrendsData}
+          data={data}
           margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />

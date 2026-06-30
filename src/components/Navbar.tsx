@@ -16,7 +16,11 @@ const navItems = [
   { name: "My Bookings", href: "/my-bookings" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  settings?: any;
+}
+
+export default function Navbar({ settings }: NavbarProps) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -114,7 +118,15 @@ export default function Navbar() {
             <Globe className="h-6 w-6 text-gold group-hover:rotate-12 transition-transform duration-300" />
           </div>
           <span className="font-serif text-lg md:text-xl font-bold tracking-widest text-white">
-            TRAVEL WITH <span className="text-gold">MERCY</span>
+            {(settings?.companyName || "TRAVEL WITH MERCY").includes("MERCY") ? (
+              <>
+                {(settings?.companyName || "TRAVEL WITH MERCY").split("MERCY")[0]}
+                <span className="text-gold">MERCY</span>
+                {(settings?.companyName || "TRAVEL WITH MERCY").split("MERCY")[1]}
+              </>
+            ) : (
+              settings?.companyName || "TRAVEL WITH MERCY"
+            )}
           </span>
         </Link>
 

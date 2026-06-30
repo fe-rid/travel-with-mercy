@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { recentBookings, Booking } from "@/data/adminDemoData";
 import { 
   Table, 
   TableBody, 
@@ -13,47 +12,83 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Filter, Eye, CheckCircle, XCircle, Trash2, Loader2 } from "lucide-react";
+import { Search, Filter, CheckCircle, XCircle, Trash2, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { getBookings, updateBookingStatus, deleteBooking } from "@/lib/actions/bookings";
 
 export default function AdminBookingsPage() {
   const { addToast } = useToast();
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookings, setBookings] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(true);
 
-  // Load from localStorage or seed
-  useEffect(() => {
-    const existing = localStorage.getItem("twm_bookings");
-    if (existing) {
-      setBookings(JSON.parse(existing));
-    } else {
-      localStorage.setItem("twm_bookings", JSON.stringify(recentBookings));
-      setBookings(recentBookings);
+  // Load bookings from PostgreSQL via Server Action
+  async function loadBookings() {
+    try {
+      const res = await getBookings();
+      if (res.success && res.data) {
+        // Map database fields to UI expectations
+        const mapped = res.data.map((b: any) => ({
+          id: b.bookingReference,
+          dbId: b.id,
+          customer: b.fullName,
+          email: b.email,
+          phone: b.phone,
+          tour: b.tour.title,
+          tourId: b.tourId,
+          amount: `$${b.totalPrice.toLocaleString()}`,
+          date: new Date(b.createdAt).toLocaleDateString(),
+          departureDate: b.departureDate,
+          returnDate: b.returnDate,
+          travelers: b.travelers,
+          status: b.status,
+        }));
+        setBookings(mapped);
+      } else {
+        addToast(res.error || "Failed to load bookings", "error");
+      }
+    } catch (err) {
+      console.error("Error loading bookings:", err);
+      addToast("Failed to fetch bookings from server", "error");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+  }
+
+  useEffect(() => {
+    loadBookings();
   }, []);
 
-  const handleUpdateStatus = (id: string, newStatus: Booking["status"]) => {
-    addToast(`Updating booking status to ${newStatus}...`, "info");
-    setTimeout(() => {
-      const updated = bookings.map(b => b.id === id ? { ...b, status: newStatus } : b);
-      setBookings(updated);
-      localStorage.setItem("twm_bookings", JSON.stringify(updated));
-      addToast(`Booking status updated successfully!`, "success");
-    }, 500);
+  const handleUpdateStatus = async (dbId: string, newStatus: string) => {
+    addToast(`Updating status to ${newStatus}...`, "info");
+    try {
+      const res = await updateBookingStatus(dbId, newStatus);
+      if (res.success) {
+        addToast(`Booking status updated to ${newStatus}!`, "success");
+        loadBookings();
+      } else {
+        addToast(res.error || "Failed to update status", "error");
+      }
+    } catch (err: any) {
+      addToast(err.message || "Failed to update status", "error");
+    }
   };
 
-  const handleDeleteBooking = (id: string) => {
-    if (confirm("Are you sure you want to delete this booking request?")) {
+  const handleDeleteBooking = async (dbId: string) => {
+    if (confirm("Are you sure you want to delete this booking request? This action cannot be undone.")) {
       addToast("Deleting booking request...", "info");
-      setTimeout(() => {
-        const updated = bookings.filter(b => b.id !== id);
-        setBookings(updated);
-        localStorage.setItem("twm_bookings", JSON.stringify(updated));
-        addToast("Booking request deleted", "success");
-      }, 500);
+      try {
+        const res = await deleteBooking(dbId);
+        if (res.success) {
+          addToast("Booking request deleted", "success");
+          loadBookings();
+        } else {
+          addToast(res.error || "Failed to delete booking", "error");
+        }
+      } catch (err: any) {
+        addToast(err.message || "Failed to delete booking", "error");
+      }
     }
   };
 
@@ -83,9 +118,6 @@ export default function AdminBookingsPage() {
           <h1 className="text-3xl font-bold tracking-tight text-navy">Bookings</h1>
           <p className="text-muted-foreground mt-1">Manage customer reservations and inquiries.</p>
         </div>
-        <Button className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors">
-          Create Booking
-        </Button>
       </div>
 
       {/* Filters and Search */}
@@ -125,8 +157,8 @@ export default function AdminBookingsPage() {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         {loading ? (
           <div className="p-12 flex items-center justify-center gap-2 text-slate-500">
-            <Loader2 className="h-5 w-5 animate-spin" />
-            Loading bookings...
+            <Loader2 className="h-5 w-5 animate-spin text-gold" />
+            Loading bookings from database...
           </div>
         ) : (
           <Table>
@@ -145,11 +177,12 @@ export default function AdminBookingsPage() {
             <TableBody>
               {filteredBookings.length > 0 ? (
                 filteredBookings.map((booking) => (
-                  <TableRow key={booking.id}>
+                  <TableRow key={booking.dbId}>
                     <TableCell className="font-medium text-navy">{booking.id}</TableCell>
                     <TableCell>
                       <div className="font-medium">{booking.customer}</div>
                       {booking.email && <div className="text-xs text-slate-400">{booking.email}</div>}
+                      {booking.phone && <div className="text-[10px] text-slate-400">{booking.phone}</div>}
                     </TableCell>
                     <TableCell>{booking.tour}</TableCell>
                     <TableCell className="text-slate-500">
@@ -166,7 +199,7 @@ export default function AdminBookingsPage() {
                       <div className="flex items-center justify-end gap-1">
                         {booking.status === "Pending" && (
                           <Button 
-                            onClick={() => handleUpdateStatus(booking.id, "Confirmed")}
+                            onClick={() => handleUpdateStatus(booking.dbId, "Confirmed")}
                             variant="ghost" 
                             size="icon" 
                             className="h-8 w-8 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
@@ -178,7 +211,7 @@ export default function AdminBookingsPage() {
                         )}
                         {booking.status === "Pending" && (
                           <Button 
-                            onClick={() => handleUpdateStatus(booking.id, "Cancelled")}
+                            onClick={() => handleUpdateStatus(booking.dbId, "Cancelled")}
                             variant="ghost" 
                             size="icon" 
                             className="h-8 w-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50"
@@ -189,7 +222,7 @@ export default function AdminBookingsPage() {
                           </Button>
                         )}
                         <Button 
-                          onClick={() => handleDeleteBooking(booking.id)}
+                          onClick={() => handleDeleteBooking(booking.dbId)}
                           variant="ghost" 
                           size="icon" 
                           className="h-8 w-8 text-rose-600 hover:text-rose-700 hover:bg-rose-50"

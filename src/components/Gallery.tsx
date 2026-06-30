@@ -3,11 +3,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, Image as ImageIcon, Video, Play } from "lucide-react";
-import { galleryImages } from "@/data/travelData";
+import { galleryImages as defaultGalleryImages } from "@/data/travelData";
 
 const categories = ["All", "Heritage", "Nature"];
 
-export default function Gallery() {
+interface GalleryProps {
+  galleryImages?: any[];
+}
+
+export default function Gallery({ galleryImages = defaultGalleryImages }: GalleryProps) {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredImages =

@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
-import { testimonials } from "@/data/travelData";
+import { testimonials as defaultTestimonials } from "@/data/travelData";
 
-export default function Testimonials() {
+interface TestimonialsProps {
+  testimonials?: any[];
+}
+
+export default function Testimonials({ testimonials = defaultTestimonials }: TestimonialsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 for left, 1 for right
 

@@ -2,9 +2,13 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin } from "lucide-react";
-import { destinations } from "@/data/travelData";
+import { destinations as defaultDestinations } from "@/data/travelData";
 
-export default function Destinations() {
+interface DestinationsProps {
+  destinations?: any[];
+}
+
+export default function Destinations({ destinations = defaultDestinations }: DestinationsProps) {
   const containerVariants = {
     hidden: {},
     visible: {
