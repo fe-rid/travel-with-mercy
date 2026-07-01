@@ -304,3 +304,53 @@ export async function getDashboardStats() {
     return { success: false, error: error.message || "Failed to compile stats" };
   }
 }
+
+export async function getBookingByRefAndEmail(bookingReference: string, email: string) {
+  try {
+    if (!bookingReference || !email) {
+      return { success: false, error: "Booking reference and email are required" };
+    }
+
+    const booking = await prisma.booking.findFirst({
+      where: {
+        bookingReference: {
+          equals: bookingReference.trim(),
+          mode: "insensitive"
+        },
+        email: {
+          equals: email.trim(),
+          mode: "insensitive"
+        }
+      },
+      include: {
+        tour: true
+      }
+    });
+
+    if (!booking) {
+      return { success: false, error: "No booking was found with the provided reference and email." };
+    }
+
+    return {
+      success: true,
+      data: {
+        id: booking.bookingReference,
+        customer: booking.fullName,
+        email: booking.email,
+        phone: booking.phone,
+        tour: booking.tour.title,
+        tourId: booking.tourId,
+        date: booking.createdAt.toLocaleDateString(),
+        departureDate: booking.departureDate.toISOString().split("T")[0],
+        returnDate: booking.returnDate.toISOString().split("T")[0],
+        amount: `$${booking.totalPrice.toLocaleString()}`,
+        travelers: booking.travelers,
+        hotelPreference: booking.hotelPreference,
+        status: booking.status as "Pending" | "Confirmed" | "Completed" | "Cancelled"
+      }
+    };
+  } catch (error: any) {
+    console.error("Fetch booking by reference and email error:", error);
+    return { success: false, error: "An unexpected error occurred" };
+  }
+}

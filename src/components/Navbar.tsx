@@ -13,7 +13,7 @@ const navItems = [
   { name: "Tours", href: "/#tours" },
   { name: "Gallery", href: "/#gallery" },
   { name: "Testimonials", href: "/#testimonials" },
-  { name: "My Bookings", href: "/my-bookings" },
+  { name: "Track Booking", href: "/track-booking" },
 ];
 
 interface NavbarProps {
@@ -49,8 +49,8 @@ export default function Navbar({ settings }: NavbarProps) {
         if (currentSection) {
           setActiveSection(currentSection);
         }
-      } else if (pathname.startsWith("/my-bookings")) {
-        setActiveSection("my-bookings");
+      } else if (pathname.startsWith("/track-booking")) {
+        setActiveSection("track-booking");
       } else {
         setActiveSection("");
       }
@@ -62,8 +62,8 @@ export default function Navbar({ settings }: NavbarProps) {
   }, [pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // If navigating to a separate route (like /my-bookings or if navigating to / homepage from another route)
-    if (href.startsWith("/my-bookings") || href === "/") {
+    // If navigating to a separate route (like /track-booking or if navigating to / homepage from another route)
+    if (href.startsWith("/track-booking") || href === "/") {
       setIsMobileMenuOpen(false);
       return; // let next/link route normally
     }
@@ -95,7 +95,7 @@ export default function Navbar({ settings }: NavbarProps) {
 
   const getActiveItemName = () => {
     if (activeSection === "home") return "/";
-    if (activeSection === "my-bookings") return "/my-bookings";
+    if (activeSection === "track-booking") return "/track-booking";
     return `/#${activeSection}`;
   };
 

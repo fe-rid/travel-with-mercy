@@ -116,12 +116,13 @@ export default function AdminDestinationsPage() {
         
         {/* Create Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Destination
-            </Button>
-          </DialogTrigger>
+          <Button 
+            className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors"
+            onClick={() => setIsDialogOpen(true)}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Destination
+          </Button>
           <DialogContent className="sm:max-w-lg bg-white text-navy border-none shadow-2xl">
             <DialogHeader>
               <DialogTitle className="text-navy font-bold text-lg">Add New Destination</DialogTitle>

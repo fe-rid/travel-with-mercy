@@ -694,10 +694,10 @@ function BookTourContent() {
                     Return Home
                   </Link>
                   <Link
-                    href="/my-bookings"
+                    href="/track-booking"
                     className="inline-flex items-center justify-center border border-navy/20 hover:border-gold text-navy hover:text-gold font-bold py-4 px-8 rounded-full text-xs uppercase tracking-wider transition w-full sm:w-auto text-center cursor-pointer"
                   >
-                    View My Bookings
+                    Track Booking
                   </Link>
                 </div>
               </motion.div>

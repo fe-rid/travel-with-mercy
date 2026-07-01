@@ -120,12 +120,13 @@ export default function AdminGalleryPage() {
         
         {/* Upload Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors">
-              <Upload className="h-4 w-4 mr-2" />
-              Upload Image
-            </Button>
-          </DialogTrigger>
+          <Button 
+            className="bg-navy hover:bg-gold hover:text-navy text-white transition-colors"
+            onClick={() => setIsDialogOpen(true)}
+          >
+            <Upload className="h-4 w-4 mr-2" />
+            Upload Image
+          </Button>
           <DialogContent className="sm:max-w-md bg-white text-navy border-none shadow-2xl">
             <DialogHeader>
               <DialogTitle className="text-navy font-bold text-lg">Upload Media Asset</DialogTitle>

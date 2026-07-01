@@ -3,6 +3,9 @@
 import prisma from "@/lib/prisma";
 import { WebsiteSettingsSchema } from "@/lib/schemas";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import bcrypt from "bcryptjs";
 
 export async function getWebsiteSettings() {
   try {
